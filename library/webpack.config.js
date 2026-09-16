@@ -2,6 +2,7 @@ const path = require('path')
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 const COMMON_SASS_PATH = path.resolve(__dirname, './src/common/sass')
 
@@ -33,7 +34,15 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css'
-    })
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src/common/img/jpg'),
+          to: path.resolve(__dirname, 'dist/assets')
+        },
+      ],
+    }),
   ],
   module: {
     rules: [
